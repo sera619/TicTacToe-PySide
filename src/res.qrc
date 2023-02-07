@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../appicon.ico</file>
+    <file>../img/gameicon.png</file>
+  </qresource>
+</RCC>
