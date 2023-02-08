@@ -4,3 +4,4 @@ dist
 build
 package
 main.spec
+tet.py
