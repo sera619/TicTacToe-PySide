@@ -7,7 +7,7 @@ from src.ui_Ui_main import Ui_MainWindow
 from Game import Player, Game
 from util import ButtonStyles
 
-VERSIONNUM: Final = "1.2"
+VERSIONNUM: Final = "1.4"
 BASE_DIR: Final = os.path.dirname(__file__)
 
 class MainWindow(QMainWindow):
@@ -15,7 +15,6 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.start_animation()
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.ui.copyrightLabel.setText(f"Version {VERSIONNUM} | 2023 © S343o3")
@@ -26,8 +25,8 @@ class MainWindow(QMainWindow):
         self.setup_gamebuttons()
         self.gameover = False
         self.block_gamefield()
-        self.ui.p1NameInput.setText("Test 1")
-        self.ui.p2NameInput.setText("Test 2")
+        # self.ui.p1NameInput.setText("Test 1")
+        # self.ui.p2NameInput.setText("Test 2")
         self.round = 0
         self.winner_btn = []
         self.AITimer = QTimer()
