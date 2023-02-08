@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(736, 561)
+        MainWindow.resize(750, 625)
         icon = QIcon()
         icon.addFile(u":/icons/img/gameicon.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -89,7 +89,7 @@ class Ui_MainWindow(object):
         self.label.setTextFormat(Qt.AutoText)
         self.label.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
 
-        self.verticalLayout_3.addWidget(self.label, 0, Qt.AlignTop)
+        self.verticalLayout_3.addWidget(self.label)
 
 
         self.verticalLayout_2.addWidget(self.headerFrame, 0, Qt.AlignTop)
@@ -140,6 +140,8 @@ class Ui_MainWindow(object):
         self.turnLabel.setObjectName(u"turnLabel")
         sizePolicy.setHeightForWidth(self.turnLabel.sizePolicy().hasHeightForWidth())
         self.turnLabel.setSizePolicy(sizePolicy)
+        self.turnLabel.setMinimumSize(QSize(0, 30))
+        self.turnLabel.setMaximumSize(QSize(16777215, 30))
         font1 = QFont()
         font1.setFamilies([u"PhrasticMedium"])
         font1.setPointSize(19)
@@ -160,7 +162,7 @@ class Ui_MainWindow(object):
 
         self.frame_3 = QFrame(self.frame_8)
         self.frame_3.setObjectName(u"frame_3")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
@@ -173,11 +175,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.frame_6 = QFrame(self.frame_3)
         self.frame_6.setObjectName(u"frame_6")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.frame_6.sizePolicy().hasHeightForWidth())
-        self.frame_6.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.frame_6.sizePolicy().hasHeightForWidth())
+        self.frame_6.setSizePolicy(sizePolicy1)
         self.frame_6.setStyleSheet(u"QFrame{\n"
 "border-radius: 25px;\n"
 "border:1px solid rgba(234, 156, 0, 180);\n"
@@ -197,13 +196,6 @@ class Ui_MainWindow(object):
         self.gridLayout.setHorizontalSpacing(20)
         self.gridLayout.setVerticalSpacing(30)
         self.gridLayout.setContentsMargins(16, 16, 16, 16)
-        self.player2Label = QLabel(self.frame_6)
-        self.player2Label.setObjectName(u"player2Label")
-        self.player2Label.setStyleSheet(u"color: rgb(0, 85, 127);")
-        self.player2Label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.player2Label, 1, 2, 1, 1)
-
         self.p1ScoreLabel = QLabel(self.frame_6)
         self.p1ScoreLabel.setObjectName(u"p1ScoreLabel")
         self.p1ScoreLabel.setStyleSheet(u"color: rgb(170, 0, 0);")
@@ -211,29 +203,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.p1ScoreLabel, 5, 0, 1, 1, Qt.AlignTop)
 
-        self.player1Label = QLabel(self.frame_6)
-        self.player1Label.setObjectName(u"player1Label")
-        self.player1Label.setStyleSheet(u"color: rgb(170, 0, 0);")
-        self.player1Label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.player1Label, 1, 0, 1, 1)
-
-        self.label_8 = QLabel(self.frame_6)
-        self.label_8.setObjectName(u"label_8")
+        self.label_6 = QLabel(self.frame_6)
+        self.label_6.setObjectName(u"label_6")
         font2 = QFont()
         font2.setFamilies([u"PhrasticMedium"])
         font2.setPointSize(26)
         font2.setBold(False)
         font2.setItalic(False)
-        self.label_8.setFont(font2)
-        self.label_8.setStyleSheet(u"color: rgb(0, 85, 255);\n"
-"font: 26pt \"PhrasticMedium\";	")
-        self.label_8.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label_8, 0, 2, 1, 1)
-
-        self.label_6 = QLabel(self.frame_6)
-        self.label_6.setObjectName(u"label_6")
         self.label_6.setFont(font2)
         self.label_6.setStyleSheet(u"font: 26pt \"PhrasticMedium\";\n"
 "color: rgb(255, 0, 0);")
@@ -248,32 +224,65 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.p2ScoreLabel, 5, 2, 1, 1, Qt.AlignTop)
 
+        self.label_8 = QLabel(self.frame_6)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setFont(font2)
+        self.label_8.setStyleSheet(u"color: rgb(0, 85, 255);\n"
+"font: 26pt \"PhrasticMedium\";	")
+        self.label_8.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_8, 0, 2, 1, 1)
+
+        self.player1Label = QLabel(self.frame_6)
+        self.player1Label.setObjectName(u"player1Label")
+        self.player1Label.setStyleSheet(u"color: rgb(170, 0, 0);")
+        self.player1Label.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.player1Label, 1, 0, 1, 1)
+
+        self.player2Label = QLabel(self.frame_6)
+        self.player2Label.setObjectName(u"player2Label")
+        self.player2Label.setStyleSheet(u"color: rgb(0, 85, 127);")
+        self.player2Label.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.player2Label, 1, 2, 1, 1)
+
 
         self.horizontalLayout.addWidget(self.frame_6, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.gameField = QFrame(self.frame_3)
         self.gameField.setObjectName(u"gameField")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.gameField.sizePolicy().hasHeightForWidth())
+        self.gameField.setSizePolicy(sizePolicy2)
+        self.gameField.setMinimumSize(QSize(350, 350))
+        self.gameField.setMaximumSize(QSize(325, 325))
+        font3 = QFont()
+        font3.setKerning(True)
+        self.gameField.setFont(font3)
         self.gameField.setStyleSheet(u"QPushButton{\n"
 "	border: 1px solid gray;\n"
-"	border-radius: 37%;\n"
+"	border-radius: 37px;\n"
 "	font-weight: bold;\n"
-"	color: #FFF;\n"
-"		\n"
+"	color:rgb(255, 85, 0);\n"
 "	font: 32pt \"Street Writer (noah)\";\n"
 "	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));\n"
 "}\n"
 "QPushButton::Hover{\n"
-"	color: rgb(3, 196, 255);\n"
-"	font-size: 48px;\n"
+"	color:#FFF;\n"
+"	font-size: 56px;\n"
+"	border: 2px solid orange;\n"
+"	background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(255, 170, 0, 160), stop:0.994318 rgba(148, 49, 0, 160));\n"
 "}\n"
-"\n"
 "QPushButton::Disabled{\n"
-"	\n"
 "	background-color: rgba(67, 67, 67, 75);\n"
 "	color:black;\n"
-"	\n"
 "}\n"
-"\n"
+"QPushButton:Pressed{\n"
+"	border-radius:37px;\n"
+"}\n"
 "#gameField{\n"
 "	background-color: rgba(11, 11, 11, 180);\n"
 "	border-radius: 25px;\n"
@@ -283,17 +292,17 @@ class Ui_MainWindow(object):
         self.gameFieldGrid = QGridLayout(self.gameField)
         self.gameFieldGrid.setSpacing(15)
         self.gameFieldGrid.setObjectName(u"gameFieldGrid")
-        self.gameFieldGrid.setContentsMargins(9, 9, 9, 9)
+        self.gameFieldGrid.setContentsMargins(15, 15, 15, 15)
         self.gridBtn_8 = QPushButton(self.gameField)
         self.gridBtn_8.setObjectName(u"gridBtn_8")
         self.gridBtn_8.setMinimumSize(QSize(75, 75))
-        self.gridBtn_8.setMaximumSize(QSize(75, 75))
-        font3 = QFont()
-        font3.setFamilies([u"Street Writer (noah)"])
-        font3.setPointSize(32)
-        font3.setBold(False)
-        font3.setItalic(False)
-        self.gridBtn_8.setFont(font3)
+        self.gridBtn_8.setMaximumSize(QSize(85, 85))
+        font4 = QFont()
+        font4.setFamilies([u"Street Writer (noah)"])
+        font4.setPointSize(32)
+        font4.setBold(False)
+        font4.setItalic(False)
+        self.gridBtn_8.setFont(font4)
         self.gridBtn_8.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_8, 2, 2, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -301,8 +310,8 @@ class Ui_MainWindow(object):
         self.gridBtn_2 = QPushButton(self.gameField)
         self.gridBtn_2.setObjectName(u"gridBtn_2")
         self.gridBtn_2.setMinimumSize(QSize(75, 75))
-        self.gridBtn_2.setMaximumSize(QSize(75, 75))
-        self.gridBtn_2.setFont(font3)
+        self.gridBtn_2.setMaximumSize(QSize(85, 85))
+        self.gridBtn_2.setFont(font4)
         self.gridBtn_2.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_2, 0, 2, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -310,8 +319,8 @@ class Ui_MainWindow(object):
         self.gridBtn_3 = QPushButton(self.gameField)
         self.gridBtn_3.setObjectName(u"gridBtn_3")
         self.gridBtn_3.setMinimumSize(QSize(75, 75))
-        self.gridBtn_3.setMaximumSize(QSize(75, 75))
-        self.gridBtn_3.setFont(font3)
+        self.gridBtn_3.setMaximumSize(QSize(85, 85))
+        self.gridBtn_3.setFont(font4)
         self.gridBtn_3.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_3, 0, 3, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -319,8 +328,8 @@ class Ui_MainWindow(object):
         self.gridBtn_9 = QPushButton(self.gameField)
         self.gridBtn_9.setObjectName(u"gridBtn_9")
         self.gridBtn_9.setMinimumSize(QSize(75, 75))
-        self.gridBtn_9.setMaximumSize(QSize(75, 75))
-        self.gridBtn_9.setFont(font3)
+        self.gridBtn_9.setMaximumSize(QSize(85, 85))
+        self.gridBtn_9.setFont(font4)
         self.gridBtn_9.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_9, 2, 3, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -328,8 +337,8 @@ class Ui_MainWindow(object):
         self.gridBtn_5 = QPushButton(self.gameField)
         self.gridBtn_5.setObjectName(u"gridBtn_5")
         self.gridBtn_5.setMinimumSize(QSize(75, 75))
-        self.gridBtn_5.setMaximumSize(QSize(75, 75))
-        self.gridBtn_5.setFont(font3)
+        self.gridBtn_5.setMaximumSize(QSize(85, 85))
+        self.gridBtn_5.setFont(font4)
         self.gridBtn_5.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_5, 1, 2, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -337,8 +346,8 @@ class Ui_MainWindow(object):
         self.gridBtn_6 = QPushButton(self.gameField)
         self.gridBtn_6.setObjectName(u"gridBtn_6")
         self.gridBtn_6.setMinimumSize(QSize(75, 75))
-        self.gridBtn_6.setMaximumSize(QSize(75, 75))
-        self.gridBtn_6.setFont(font3)
+        self.gridBtn_6.setMaximumSize(QSize(85, 85))
+        self.gridBtn_6.setFont(font4)
         self.gridBtn_6.setFocusPolicy(Qt.ClickFocus)
         self.gridBtn_6.setStyleSheet(u"")
 
@@ -346,19 +355,22 @@ class Ui_MainWindow(object):
 
         self.gridBtn_1 = QPushButton(self.gameField)
         self.gridBtn_1.setObjectName(u"gridBtn_1")
+        sizePolicy2.setHeightForWidth(self.gridBtn_1.sizePolicy().hasHeightForWidth())
+        self.gridBtn_1.setSizePolicy(sizePolicy2)
         self.gridBtn_1.setMinimumSize(QSize(75, 75))
-        self.gridBtn_1.setMaximumSize(QSize(50, 50))
-        self.gridBtn_1.setFont(font3)
+        self.gridBtn_1.setMaximumSize(QSize(85, 85))
+        self.gridBtn_1.setFont(font4)
         self.gridBtn_1.setFocusPolicy(Qt.ClickFocus)
         self.gridBtn_1.setStyleSheet(u"")
+        self.gridBtn_1.setCheckable(False)
 
         self.gameFieldGrid.addWidget(self.gridBtn_1, 0, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.gridBtn_4 = QPushButton(self.gameField)
         self.gridBtn_4.setObjectName(u"gridBtn_4")
         self.gridBtn_4.setMinimumSize(QSize(75, 75))
-        self.gridBtn_4.setMaximumSize(QSize(75, 75))
-        self.gridBtn_4.setFont(font3)
+        self.gridBtn_4.setMaximumSize(QSize(85, 85))
+        self.gridBtn_4.setFont(font4)
         self.gridBtn_4.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_4, 1, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -366,8 +378,8 @@ class Ui_MainWindow(object):
         self.gridBtn_7 = QPushButton(self.gameField)
         self.gridBtn_7.setObjectName(u"gridBtn_7")
         self.gridBtn_7.setMinimumSize(QSize(75, 75))
-        self.gridBtn_7.setMaximumSize(QSize(75, 75))
-        self.gridBtn_7.setFont(font3)
+        self.gridBtn_7.setMaximumSize(QSize(85, 85))
+        self.gridBtn_7.setFont(font4)
         self.gridBtn_7.setFocusPolicy(Qt.ClickFocus)
 
         self.gameFieldGrid.addWidget(self.gridBtn_7, 2, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -387,6 +399,7 @@ class Ui_MainWindow(object):
 "    padding: 3px 8px;\n"
 "	border-radius: 10px;\n"
 "	font-weight: 700;\n"
+"	font: 14pt \"PhrasticMedium\";\n"
 "}\n"
 "\n"
 "QPushButton::Hover{\n"
@@ -407,37 +420,39 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(-1, 9, 9, 9)
         self.startBtn = QPushButton(self.frame_5)
         self.startBtn.setObjectName(u"startBtn")
-        self.startBtn.setMinimumSize(QSize(120, 0))
-        font4 = QFont()
-        font4.setPointSize(12)
-        font4.setBold(True)
-        self.startBtn.setFont(font4)
+        self.startBtn.setMinimumSize(QSize(125, 35))
+        font5 = QFont()
+        font5.setFamilies([u"PhrasticMedium"])
+        font5.setPointSize(14)
+        font5.setBold(False)
+        font5.setItalic(False)
+        self.startBtn.setFont(font5)
 
         self.horizontalLayout_3.addWidget(self.startBtn)
 
         self.resetBtn = QPushButton(self.frame_5)
         self.resetBtn.setObjectName(u"resetBtn")
-        self.resetBtn.setMinimumSize(QSize(120, 0))
-        self.resetBtn.setFont(font4)
+        self.resetBtn.setMinimumSize(QSize(125, 35))
+        self.resetBtn.setFont(font5)
 
         self.horizontalLayout_3.addWidget(self.resetBtn)
 
         self.menuBtn = QPushButton(self.frame_5)
         self.menuBtn.setObjectName(u"menuBtn")
-        self.menuBtn.setMinimumSize(QSize(120, 0))
-        self.menuBtn.setFont(font4)
+        self.menuBtn.setMinimumSize(QSize(125, 35))
+        self.menuBtn.setFont(font5)
 
         self.horizontalLayout_3.addWidget(self.menuBtn)
 
         self.exitBtn = QPushButton(self.frame_5)
         self.exitBtn.setObjectName(u"exitBtn")
-        self.exitBtn.setMinimumSize(QSize(120, 0))
-        self.exitBtn.setFont(font4)
+        self.exitBtn.setMinimumSize(QSize(125, 35))
+        self.exitBtn.setFont(font5)
 
         self.horizontalLayout_3.addWidget(self.exitBtn)
 
 
-        self.verticalLayout_5.addWidget(self.frame_5, 0, Qt.AlignHCenter)
+        self.verticalLayout_5.addWidget(self.frame_5, 0, Qt.AlignHCenter|Qt.AlignBottom)
 
 
         self.verticalLayout_6.addWidget(self.frame_8)
@@ -490,27 +505,30 @@ class Ui_MainWindow(object):
         self.menuBtnFrame.setFrameShape(QFrame.StyledPanel)
         self.menuBtnFrame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_11 = QVBoxLayout(self.menuBtnFrame)
-        self.verticalLayout_11.setSpacing(10)
+        self.verticalLayout_11.setSpacing(15)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.menuNewGameBtn = QPushButton(self.menuBtnFrame)
         self.menuNewGameBtn.setObjectName(u"menuNewGameBtn")
-        self.menuNewGameBtn.setMinimumSize(QSize(120, 0))
-        self.menuNewGameBtn.setFont(font4)
+        self.menuNewGameBtn.setMinimumSize(QSize(155, 35))
+        font6 = QFont()
+        font6.setPointSize(12)
+        font6.setBold(True)
+        self.menuNewGameBtn.setFont(font6)
 
         self.verticalLayout_11.addWidget(self.menuNewGameBtn, 0, Qt.AlignVCenter)
 
         self.menuoptionBtn = QPushButton(self.menuBtnFrame)
         self.menuoptionBtn.setObjectName(u"menuoptionBtn")
-        self.menuoptionBtn.setMinimumSize(QSize(120, 0))
-        self.menuoptionBtn.setFont(font4)
+        self.menuoptionBtn.setMinimumSize(QSize(155, 35))
+        self.menuoptionBtn.setFont(font6)
 
         self.verticalLayout_11.addWidget(self.menuoptionBtn, 0, Qt.AlignVCenter)
 
         self.menuExitBtn = QPushButton(self.menuBtnFrame)
         self.menuExitBtn.setObjectName(u"menuExitBtn")
-        self.menuExitBtn.setMinimumSize(QSize(120, 0))
-        self.menuExitBtn.setFont(font4)
+        self.menuExitBtn.setMinimumSize(QSize(155, 35))
+        self.menuExitBtn.setFont(font6)
 
         self.verticalLayout_11.addWidget(self.menuExitBtn, 0, Qt.AlignVCenter)
 
@@ -550,13 +568,36 @@ class Ui_MainWindow(object):
         self.frame_10.setStyleSheet(u"QLabel{\n"
 "font: 16pt \"PhrasticMedium\";\n"
 "color: rgba(225, 150, 0, 230);\n"
+"}\n"
 "\n"
-"}")
+"QLineEdit{\n"
+"	font: 16pt \"PhrasticMedium\";\n"
+"	border-radius: 3px;\n"
+"	border:1px solid orange;\n"
+"	color: rgba(225, 150, 0, 230);\n"
+"	padding:2px;\n"
+"	text-align:center;\n"
+"\n"
+"	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));\n"
+"}\n"
+"\n"
+"QComboBox{\n"
+"font: 16pt \"PhrasticMedium\";\n"
+"color: rgba(225, 150, 0, 230);\n"
+"	border:1px solid orange;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));\n"
+"	border-radius: 3px;\n"
+"padding: 2px;\n"
+"}\n"
+"")
         self.frame_10.setFrameShape(QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QFrame.Raised)
         self.formLayout = QFormLayout(self.frame_10)
         self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setLabelAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.formLayout.setFormAlignment(Qt.AlignHCenter|Qt.AlignTop)
         self.formLayout.setHorizontalSpacing(25)
+        self.formLayout.setVerticalSpacing(15)
         self.label_4 = QLabel(self.frame_10)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setStyleSheet(u"color: rgba(225, 150, 0, 230);")
@@ -566,6 +607,7 @@ class Ui_MainWindow(object):
         self.p1NameInput = QLineEdit(self.frame_10)
         self.p1NameInput.setObjectName(u"p1NameInput")
         self.p1NameInput.setMaxLength(20)
+        self.p1NameInput.setAlignment(Qt.AlignCenter)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.p1NameInput)
 
@@ -578,6 +620,7 @@ class Ui_MainWindow(object):
         self.p2NameInput = QLineEdit(self.frame_10)
         self.p2NameInput.setObjectName(u"p2NameInput")
         self.p2NameInput.setMaxLength(20)
+        self.p2NameInput.setAlignment(Qt.AlignCenter)
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.p2NameInput)
 
@@ -634,21 +677,22 @@ class Ui_MainWindow(object):
 
         self.newGameBtnFrame = QFrame(self.newGameView)
         self.newGameBtnFrame.setObjectName(u"newGameBtnFrame")
+        self.newGameBtnFrame.setMinimumSize(QSize(0, 0))
         self.newGameBtnFrame.setFrameShape(QFrame.StyledPanel)
         self.newGameBtnFrame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.newGameBtnFrame)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.startNewGameBtn = QPushButton(self.newGameBtnFrame)
         self.startNewGameBtn.setObjectName(u"startNewGameBtn")
-        self.startNewGameBtn.setMinimumSize(QSize(120, 0))
-        self.startNewGameBtn.setFont(font4)
+        self.startNewGameBtn.setMinimumSize(QSize(125, 35))
+        self.startNewGameBtn.setFont(font6)
 
         self.horizontalLayout_4.addWidget(self.startNewGameBtn, 0, Qt.AlignHCenter)
 
         self.startNewGameBackBtn = QPushButton(self.newGameBtnFrame)
         self.startNewGameBackBtn.setObjectName(u"startNewGameBackBtn")
-        self.startNewGameBackBtn.setMinimumSize(QSize(120, 0))
-        self.startNewGameBackBtn.setFont(font4)
+        self.startNewGameBackBtn.setMinimumSize(QSize(125, 35))
+        self.startNewGameBackBtn.setFont(font6)
 
         self.horizontalLayout_4.addWidget(self.startNewGameBackBtn)
 
@@ -695,12 +739,12 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:48pt; font-weight:700; color:#ff5500;\">Tic </span><span style=\" font-size:48pt; font-weight:700; color:#ff0000;\">Tac </span><span style=\" font-size:48pt; font-weight:700; color:#aa0000;\">Toe</span></p></body></html>", None))
         self.gameStateLabel.setText("")
         self.turnLabel.setText(QCoreApplication.translate("MainWindow", u"S", None))
-        self.player2Label.setText(QCoreApplication.translate("MainWindow", u"454", None))
         self.p1ScoreLabel.setText("")
-        self.player1Label.setText("")
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Player 1", None))
         self.p2ScoreLabel.setText("")
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
+        self.player1Label.setText("")
+        self.player2Label.setText(QCoreApplication.translate("MainWindow", u"454", None))
         self.gridBtn_8.setText(QCoreApplication.translate("MainWindow", u"?", None))
         self.gridBtn_2.setText(QCoreApplication.translate("MainWindow", u"?", None))
         self.gridBtn_3.setText(QCoreApplication.translate("MainWindow", u"?", None))

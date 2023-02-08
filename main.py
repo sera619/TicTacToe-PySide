@@ -15,6 +15,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.start_animation()
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.ui.copyrightLabel.setText(f"Version {VERSIONNUM} | 2023 © S343o3")
@@ -25,8 +26,10 @@ class MainWindow(QMainWindow):
         self.setup_gamebuttons()
         self.gameover = False
         self.block_gamefield()
+        self.ui.p1NameInput.setText("Test 1")
+        self.ui.p2NameInput.setText("Test 2")
         self.round = 0
-
+        self.winner_btn = []
         self.AITimer = QTimer()
         self.AITimer.setSingleShot(True)
         self.AITimer.timeout.connect(lambda: self.ai_button_handler())
@@ -49,7 +52,6 @@ class MainWindow(QMainWindow):
         self.ui.gridBtn_7.clicked.connect(lambda: self.player_button_handler(self.ui.gridBtn_7))
         self.ui.gridBtn_8.clicked.connect(lambda: self.player_button_handler(self.ui.gridBtn_8))
         self.ui.gridBtn_9.clicked.connect(lambda: self.player_button_handler(self.ui.gridBtn_9))
-
         self.ui.startBtn.clicked.connect(lambda: self.play_game())
         self.ui.resetBtn.clicked.connect(lambda: self.game_reset())
         self.ui.menuBtn.clicked.connect(lambda: self.switch_menu_view())
@@ -92,6 +94,7 @@ class MainWindow(QMainWindow):
 
     def reset_gamefield(self):
         self.unlock_gamefield()
+        self.remove_winner_effect()
         self.ui.gridBtn_1.setText("?")
         self.ui.gridBtn_2.setText("?")
         self.ui.gridBtn_3.setText("?")
@@ -101,6 +104,15 @@ class MainWindow(QMainWindow):
         self.ui.gridBtn_7.setText("?")
         self.ui.gridBtn_8.setText("?")
         self.ui.gridBtn_9.setText("?")
+        self.ui.gridBtn_1.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_2.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_3.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_4.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_5.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_6.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_7.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_8.setMinimumSize(QSize(75, 75))
+        self.ui.gridBtn_9.setMinimumSize(QSize(75, 75))
         self.ui.gridBtn_1.setStyleSheet(ButtonStyles.GameBtnNormal)
         self.ui.gridBtn_2.setStyleSheet(ButtonStyles.GameBtnNormal)
         self.ui.gridBtn_3.setStyleSheet(ButtonStyles.GameBtnNormal)
@@ -173,12 +185,17 @@ class MainWindow(QMainWindow):
 
     def player_button_handler(self, button:QPushButton):
         button.setText(self.Game.turn.symbol)
+        animation = QPropertyAnimation(button, b"minimumSize", self.ui.stackedWidget)
+        animation.finished.connect(button.setDisabled(True))
+        animation.setDuration(300)
+        animation.setStartValue(QSize(75,75))
+        animation.setEndValue(QSize(85,85))
+        animation.start()
         if self.Game.turn.symbol == self.Game.player1.symbol:
-            button.setEnabled(False)
-            button.setStyleSheet("color: rgb(255, 0, 0);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(103, 0, 0, 220));")
+            button.setStyleSheet("border: 2px solid rgb(255, 0, 0); border-radius: 42px;font-size:58px; color: rgb(255, 0, 0);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(103, 0, 0, 220));")
         else:
-            button.setStyleSheet("color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
-        button.setDisabled(True)
+            button.setStyleSheet("border: 2px solid rgb(0, 85, 255);border-radius: 42px;font-size:58px; color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
+
         self.Game.move_player(button.objectName())
 
         if self.Game.winner == None and self.Game.game_over == True:        
@@ -191,13 +208,18 @@ class MainWindow(QMainWindow):
         self.ui.turnLabel.setText(f"Its >>> {self.Game.turn.name} <<< turn!")
         if self.Game.turn == self.Game.player2 and self.Game.player2.ai:
             self.block_gamefield()
-            self.AITimer.start(1500)
-    
+            self.AITimer.start(1200)
+
     def ai_button_handler(self):
         btn = self.findChild(QPushButton, "gridBtn_"+str(self.Game.ai_set_move()))
-        btn.setDisabled(True)
         btn.setText(self.Game.player2.symbol)
-        btn.setStyleSheet("color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
+        animation = QPropertyAnimation(btn, b"minimumSize", self.ui.centralwidget)
+        animation.finished.connect(btn.setDisabled(True))
+        animation.setDuration(180)
+        animation.setStartValue(QSize(65,65))
+        animation.setEndValue(QSize(85,85))
+        animation.start()
+        btn.setStyleSheet("border: 2px solid rgb(0, 85, 255);border-radius: 42px;font-size:58px; color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
         print("AI Clicked btn: "+ btn.objectName())
         if self.Game.winner == None and self.Game.game_over == True:        
             self.draw()
@@ -220,7 +242,32 @@ class MainWindow(QMainWindow):
         self.ui.turnLabel.setText(f"Winner is {self.Game.winner.name}!")
         self.ui.p1ScoreLabel.setText(str(self.Game.player1.score))
         self.ui.p2ScoreLabel.setText(str(self.Game.player2.score))
+        self.add_winner_effect()
+    
+    def add_winner_effect(self):
+        self.unlock_gamefield()
+        btn1:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[0]))
+        btn2:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[1]))
+        btn3:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[2]))
+        self.winner_btn = [btn1, btn2, btn3]
+
+        for btn in self.winner_btn:
+            shadow_1 = QGraphicsDropShadowEffect()
+            shadow_1.setBlurRadius(105.0)
+            if self.Game.winner == self.Game.player1:
+                shadow_1.setColor(QColor(255, 0, 0, 220))
+            else:
+                shadow_1.setColor(QColor(0, 0, 255, 220))                
+            shadow_1.setXOffset(0)
+            shadow_1.setYOffset(0)
+            shadow_1.setParent(btn)
+            btn.setGraphicsEffect(shadow_1)
         self.block_gamefield()
+    
+    def remove_winner_effect(self):
+        for btn in self.winner_btn:
+            btn.setGraphicsEffect(None)
+        self.winner_btn = []
 
     def mousePressEvent(self, event):
         self.clickPosition = event.globalPos()
