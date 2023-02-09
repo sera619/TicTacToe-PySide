@@ -8,11 +8,12 @@ class Player:
     score: int = 0
     ai: bool = False
 
-class Game:
+class TTTGame:
     player1: Player
     player2: Player
     game_over: bool = True
     turn: Player
+    round: int
     winner: str = None
     playround: int = 1
     gamefield: dict = {
