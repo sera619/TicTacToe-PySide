@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>625</height>
+    <width>702</width>
+    <height>608</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,9 @@ background-color: rgba(0,0,0,0);
 }
 #gameView{
 background-color: rgba(0,0,0,0);
-
+}
+#tetView{
+background-color: rgba(0,0,0,0);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -130,7 +132,7 @@ background-color: rgba(0,0,0,0);
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:48pt; font-weight:700; color:#ff5500;&quot;&gt;Tic &lt;/span&gt;&lt;span style=&quot; font-size:48pt; font-weight:700; color:#ff0000;&quot;&gt;Tac &lt;/span&gt;&lt;span style=&quot; font-size:48pt; font-weight:700; color:#aa0000;&quot;&gt;Toe&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#ff5500;&quot;&gt;Retro &lt;/span&gt;&lt;span style=&quot; font-weight:700; color:#ff0000;&quot;&gt;game &lt;/span&gt;&lt;span style=&quot; font-weight:700; color:#aa0000;&quot;&gt;bOx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>
@@ -149,7 +151,7 @@ background-color: rgba(0,0,0,0);
           <string notr="true"/>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="gameView">
           <property name="styleSheet">
@@ -365,54 +367,6 @@ font: 16pt &quot;PhrasticMedium&quot;;
                     <property name="verticalSpacing">
                      <number>30</number>
                     </property>
-                    <item row="5" column="0" alignment="Qt::AlignTop">
-                     <widget class="QLabel" name="p1ScoreLabel">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(170, 0, 0);</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_6">
-                      <property name="font">
-                       <font>
-                        <family>PhrasticMedium</family>
-                        <pointsize>26</pointsize>
-                        <italic>false</italic>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font: 26pt &quot;PhrasticMedium&quot;;
-color: rgb(255, 0, 0);</string>
-                      </property>
-                      <property name="text">
-                       <string>Player 1</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="2" alignment="Qt::AlignTop">
-                     <widget class="QLabel" name="p2ScoreLabel">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(0, 85, 127);</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="0" column="2">
                      <widget class="QLabel" name="label_8">
                       <property name="font">
@@ -435,6 +389,72 @@ font: 26pt &quot;PhrasticMedium&quot;;	</string>
                       </property>
                      </widget>
                     </item>
+                    <item row="2" column="2">
+                     <widget class="QLCDNumber" name="p2ScoreLcd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLCDNumber{
+color: rgb(0, 85, 255);
+border:none;
+}
+
+</string>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Plain</enum>
+                      </property>
+                      <property name="digitCount">
+                       <number>2</number>
+                      </property>
+                      <property name="mode">
+                       <enum>QLCDNumber::Dec</enum>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                      <property name="intValue" stdset="0">
+                       <number>0</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="2">
+                     <widget class="QLCDNumber" name="tttRoundLCD">
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(225, 150, 0);	
+border: none;</string>
+                      </property>
+                      <property name="digitCount">
+                       <number>2</number>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QLabel" name="label_14">
+                      <property name="styleSheet">
+                       <string notr="true">		color: rgb(225, 150, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>Round</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="1" column="0">
                      <widget class="QLabel" name="player1Label">
                       <property name="styleSheet">
@@ -448,6 +468,34 @@ font: 26pt &quot;PhrasticMedium&quot;;	</string>
                       </property>
                      </widget>
                     </item>
+                    <item row="2" column="0">
+                     <widget class="QLCDNumber" name="p1ScoreLcd">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QLCDNumber{
+	border:none;
+	color: rgb(255, 0, 0);
+}</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::Box</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Plain</enum>
+                      </property>
+                      <property name="digitCount">
+                       <number>2</number>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="1" column="2">
                      <widget class="QLabel" name="player2Label">
                       <property name="styleSheet">
@@ -455,6 +503,28 @@ font: 26pt &quot;PhrasticMedium&quot;;	</string>
                       </property>
                       <property name="text">
                        <string>454</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_6">
+                      <property name="font">
+                       <font>
+                        <family>PhrasticMedium</family>
+                        <pointsize>26</pointsize>
+                        <italic>false</italic>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">font: 26pt &quot;PhrasticMedium&quot;;
+color: rgb(255, 0, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>Player 1</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -566,6 +636,9 @@ border:1px solid rgba(234, 156, 0, 180);
                     </item>
                     <item row="0" column="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                      <widget class="QPushButton" name="gridBtn_2">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
                       <property name="minimumSize">
                        <size>
                         <width>75</width>
@@ -965,6 +1038,408 @@ QPushButton::pressed{
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tetView">
+          <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="frame_13">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
+              <item>
+               <widget class="QFrame" name="frame_14">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QFrame" name="tetScoreFrame">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0,0,0,0">
+                    <item alignment="Qt::AlignTop">
+                     <widget class="QLabel" name="tetStateLabel">
+                      <property name="styleSheet">
+                       <string notr="true">font: 28px &quot;PhrasticMedium&quot;;
+color:rgb(59, 177, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>Gamestate</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="margin">
+                       <number>5</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="nextTetLabel">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="scaledContents">
+                       <bool>false</bool>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::NoTextInteraction</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                     <widget class="QLabel" name="label_11">
+                      <property name="text">
+                       <string>Score</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignBottom">
+                     <widget class="QLCDNumber" name="tetScoreLCD">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="mode">
+                       <enum>QLCDNumber::Dec</enum>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                      <property name="intValue" stdset="0">
+                       <number>500000</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                     <widget class="QLabel" name="label_13">
+                      <property name="frameShadow">
+                       <enum>QFrame::Plain</enum>
+                      </property>
+                      <property name="text">
+                       <string>Lines</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLCDNumber" name="tetLinesLCD">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <property name="smallDecimalPoint">
+                       <bool>false</bool>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+                     <widget class="QLabel" name="label_12">
+                      <property name="text">
+                       <string>Level</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignTop">
+                     <widget class="QLCDNumber" name="tetLvlLCD">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>220</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <property name="smallDecimalPoint">
+                       <bool>false</bool>
+                      </property>
+                      <property name="segmentStyle">
+                       <enum>QLCDNumber::Flat</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignHCenter">
+                  <widget class="QWidget" name="tetrisBoardWidget" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>200</width>
+                     <height>370</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>225</width>
+                     <height>370</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignBottom">
+               <widget class="QFrame" name="tetBtnFrame">
+                <property name="minimumSize">
+                 <size>
+                  <width>155</width>
+                  <height>35</height>
+                 </size>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <property name="spacing">
+                  <number>5</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item alignment="Qt::AlignBottom">
+                  <widget class="QPushButton" name="tetStartBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>155</width>
+                     <height>35</height>
+                    </size>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
+                   <property name="text">
+                    <string>Start</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignBottom">
+                  <widget class="QPushButton" name="tetPauseBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>155</width>
+                     <height>35</height>
+                    </size>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
+                   <property name="text">
+                    <string>Pause</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignBottom">
+                  <widget class="QPushButton" name="tetMenuBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>155</width>
+                     <height>35</height>
+                    </size>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
+                   <property name="text">
+                    <string>Menu</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignBottom">
+                  <widget class="QPushButton" name="tetExitBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>155</width>
+                     <height>35</height>
+                    </size>
+                   </property>
+                   <property name="focusPolicy">
+                    <enum>Qt::NoFocus</enum>
+                   </property>
+                   <property name="text">
+                    <string>Exit</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="menuView">
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item alignment="Qt::AlignVCenter">
@@ -1077,7 +1552,20 @@ color: rgb(0, 170, 255)</string>
                        </font>
                       </property>
                       <property name="text">
-                       <string>Start Game</string>
+                       <string>Tic Tac Toe</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="menuTetBtn">
+                      <property name="minimumSize">
+                       <size>
+                        <width>155</width>
+                        <height>35</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Tetris</string>
                       </property>
                      </widget>
                     </item>
@@ -1168,11 +1656,12 @@ color: rgba(225, 150, 0, 230);
 
 QLineEdit{
 	font: 16pt &quot;PhrasticMedium&quot;;
-	border-radius: 3px;
+	border-radius: 8px;
 	border:1px solid orange;
 	color: rgba(225, 150, 0, 230);
 	padding:2px;
 	text-align:center;
+
 
 	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));
 }
@@ -1182,8 +1671,10 @@ font: 16pt &quot;PhrasticMedium&quot;;
 color: rgba(225, 150, 0, 230);
 	border:1px solid orange;
 	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));
-	border-radius: 3px;
+	border-radius: 8px;
 padding: 2px;
+padding-right:2px;
+
 }
 </string>
              </property>
@@ -1269,6 +1760,12 @@ padding: 2px;
               </item>
               <item row="2" column="1">
                <widget class="QComboBox" name="p1IconBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>190</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="sizeAdjustPolicy">
                  <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
                 </property>
@@ -1301,11 +1798,17 @@ padding: 2px;
               </item>
               <item row="3" column="1">
                <widget class="QComboBox" name="p2IconBox">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
                 <property name="currentIndex">
                  <number>0</number>
                 </property>
                 <property name="maxCount">
                  <number>999999999</number>
+                </property>
+                <property name="sizeAdjustPolicy">
+                 <enum>QComboBox::AdjustToContents</enum>
                 </property>
                 <item>
                  <property name="text">

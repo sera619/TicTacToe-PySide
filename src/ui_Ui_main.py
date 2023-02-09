@@ -16,16 +16,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFormLayout,
-    QFrame, QGridLayout, QHBoxLayout, QLabel,
-    QLineEdit, QMainWindow, QPushButton, QSizePolicy,
-    QStackedWidget, QVBoxLayout, QWidget)
+    QFrame, QGridLayout, QHBoxLayout, QLCDNumber,
+    QLabel, QLineEdit, QMainWindow, QPushButton,
+    QSizePolicy, QStackedWidget, QVBoxLayout, QWidget)
 import res_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(750, 625)
+        MainWindow.resize(702, 608)
         icon = QIcon()
         icon.addFile(u":/icons/img/gameicon.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -51,7 +51,9 @@ class Ui_MainWindow(object):
 "}\n"
 "#gameView{\n"
 "background-color: rgba(0,0,0,0);\n"
-"\n"
+"}\n"
+"#tetView{\n"
+"background-color: rgba(0,0,0,0);\n"
 "}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -196,42 +198,53 @@ class Ui_MainWindow(object):
         self.gridLayout.setHorizontalSpacing(20)
         self.gridLayout.setVerticalSpacing(30)
         self.gridLayout.setContentsMargins(16, 16, 16, 16)
-        self.p1ScoreLabel = QLabel(self.frame_6)
-        self.p1ScoreLabel.setObjectName(u"p1ScoreLabel")
-        self.p1ScoreLabel.setStyleSheet(u"color: rgb(170, 0, 0);")
-        self.p1ScoreLabel.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.p1ScoreLabel, 5, 0, 1, 1, Qt.AlignTop)
-
-        self.label_6 = QLabel(self.frame_6)
-        self.label_6.setObjectName(u"label_6")
+        self.label_8 = QLabel(self.frame_6)
+        self.label_8.setObjectName(u"label_8")
         font2 = QFont()
         font2.setFamilies([u"PhrasticMedium"])
         font2.setPointSize(26)
         font2.setBold(False)
         font2.setItalic(False)
-        self.label_6.setFont(font2)
-        self.label_6.setStyleSheet(u"font: 26pt \"PhrasticMedium\";\n"
-"color: rgb(255, 0, 0);")
-        self.label_6.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label_6, 0, 0, 1, 1)
-
-        self.p2ScoreLabel = QLabel(self.frame_6)
-        self.p2ScoreLabel.setObjectName(u"p2ScoreLabel")
-        self.p2ScoreLabel.setStyleSheet(u"color: rgb(0, 85, 127);")
-        self.p2ScoreLabel.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.p2ScoreLabel, 5, 2, 1, 1, Qt.AlignTop)
-
-        self.label_8 = QLabel(self.frame_6)
-        self.label_8.setObjectName(u"label_8")
         self.label_8.setFont(font2)
         self.label_8.setStyleSheet(u"color: rgb(0, 85, 255);\n"
 "font: 26pt \"PhrasticMedium\";	")
         self.label_8.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label_8, 0, 2, 1, 1)
+
+        self.p2ScoreLcd = QLCDNumber(self.frame_6)
+        self.p2ScoreLcd.setObjectName(u"p2ScoreLcd")
+        self.p2ScoreLcd.setMinimumSize(QSize(70, 35))
+        self.p2ScoreLcd.setStyleSheet(u"QLCDNumber{\n"
+"color: rgb(0, 85, 255);\n"
+"border:none;\n"
+"}\n"
+"\n"
+"")
+        self.p2ScoreLcd.setFrameShadow(QFrame.Plain)
+        self.p2ScoreLcd.setDigitCount(2)
+        self.p2ScoreLcd.setMode(QLCDNumber.Dec)
+        self.p2ScoreLcd.setSegmentStyle(QLCDNumber.Flat)
+        self.p2ScoreLcd.setProperty("intValue", 0)
+
+        self.gridLayout.addWidget(self.p2ScoreLcd, 2, 2, 1, 1)
+
+        self.tttRoundLCD = QLCDNumber(self.frame_6)
+        self.tttRoundLCD.setObjectName(u"tttRoundLCD")
+        self.tttRoundLCD.setMinimumSize(QSize(50, 35))
+        self.tttRoundLCD.setStyleSheet(u"color: rgb(225, 150, 0);	\n"
+"border: none;")
+        self.tttRoundLCD.setDigitCount(2)
+        self.tttRoundLCD.setSegmentStyle(QLCDNumber.Flat)
+
+        self.gridLayout.addWidget(self.tttRoundLCD, 6, 2, 1, 1)
+
+        self.label_14 = QLabel(self.frame_6)
+        self.label_14.setObjectName(u"label_14")
+        self.label_14.setStyleSheet(u"		color: rgb(225, 150, 0);")
+        self.label_14.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_14, 6, 0, 1, 1)
 
         self.player1Label = QLabel(self.frame_6)
         self.player1Label.setObjectName(u"player1Label")
@@ -240,12 +253,35 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.player1Label, 1, 0, 1, 1)
 
+        self.p1ScoreLcd = QLCDNumber(self.frame_6)
+        self.p1ScoreLcd.setObjectName(u"p1ScoreLcd")
+        self.p1ScoreLcd.setMinimumSize(QSize(70, 35))
+        self.p1ScoreLcd.setStyleSheet(u"QLCDNumber{\n"
+"	border:none;\n"
+"	color: rgb(255, 0, 0);\n"
+"}")
+        self.p1ScoreLcd.setFrameShape(QFrame.Box)
+        self.p1ScoreLcd.setFrameShadow(QFrame.Plain)
+        self.p1ScoreLcd.setDigitCount(2)
+        self.p1ScoreLcd.setSegmentStyle(QLCDNumber.Flat)
+
+        self.gridLayout.addWidget(self.p1ScoreLcd, 2, 0, 1, 1)
+
         self.player2Label = QLabel(self.frame_6)
         self.player2Label.setObjectName(u"player2Label")
         self.player2Label.setStyleSheet(u"color: rgb(0, 85, 127);")
         self.player2Label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.player2Label, 1, 2, 1, 1)
+
+        self.label_6 = QLabel(self.frame_6)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font2)
+        self.label_6.setStyleSheet(u"font: 26pt \"PhrasticMedium\";\n"
+"color: rgb(255, 0, 0);")
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_6, 0, 0, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.frame_6, 0, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -309,6 +345,7 @@ class Ui_MainWindow(object):
 
         self.gridBtn_2 = QPushButton(self.gameField)
         self.gridBtn_2.setObjectName(u"gridBtn_2")
+        self.gridBtn_2.setEnabled(True)
         self.gridBtn_2.setMinimumSize(QSize(75, 75))
         self.gridBtn_2.setMaximumSize(QSize(85, 85))
         self.gridBtn_2.setFont(font4)
@@ -458,6 +495,178 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addWidget(self.frame_8)
 
         self.stackedWidget.addWidget(self.gameView)
+        self.tetView = QWidget()
+        self.tetView.setObjectName(u"tetView")
+        self.verticalLayout_15 = QVBoxLayout(self.tetView)
+        self.verticalLayout_15.setSpacing(0)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.verticalLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.frame_13 = QFrame(self.tetView)
+        self.frame_13.setObjectName(u"frame_13")
+        self.frame_13.setFrameShape(QFrame.StyledPanel)
+        self.frame_13.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_16 = QVBoxLayout(self.frame_13)
+        self.verticalLayout_16.setSpacing(0)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(5, 5, 5, 5)
+        self.frame_14 = QFrame(self.frame_13)
+        self.frame_14.setObjectName(u"frame_14")
+        sizePolicy1.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
+        self.frame_14.setSizePolicy(sizePolicy1)
+        self.frame_14.setFrameShape(QFrame.StyledPanel)
+        self.frame_14.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_5 = QHBoxLayout(self.frame_14)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(10, 0, 10, 0)
+        self.tetScoreFrame = QFrame(self.frame_14)
+        self.tetScoreFrame.setObjectName(u"tetScoreFrame")
+        sizePolicy1.setHeightForWidth(self.tetScoreFrame.sizePolicy().hasHeightForWidth())
+        self.tetScoreFrame.setSizePolicy(sizePolicy1)
+        self.tetScoreFrame.setMaximumSize(QSize(16777215, 16777215))
+        self.tetScoreFrame.setFrameShape(QFrame.StyledPanel)
+        self.tetScoreFrame.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_17 = QVBoxLayout(self.tetScoreFrame)
+        self.verticalLayout_17.setObjectName(u"verticalLayout_17")
+        self.tetStateLabel = QLabel(self.tetScoreFrame)
+        self.tetStateLabel.setObjectName(u"tetStateLabel")
+        self.tetStateLabel.setStyleSheet(u"font: 28px \"PhrasticMedium\";\n"
+"color:rgb(59, 177, 0);")
+        self.tetStateLabel.setAlignment(Qt.AlignCenter)
+        self.tetStateLabel.setMargin(5)
+
+        self.verticalLayout_17.addWidget(self.tetStateLabel, 0, Qt.AlignTop)
+
+        self.nextTetLabel = QLabel(self.tetScoreFrame)
+        self.nextTetLabel.setObjectName(u"nextTetLabel")
+        self.nextTetLabel.setScaledContents(False)
+        self.nextTetLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.nextTetLabel.setTextInteractionFlags(Qt.NoTextInteraction)
+
+        self.verticalLayout_17.addWidget(self.nextTetLabel)
+
+        self.label_11 = QLabel(self.tetScoreFrame)
+        self.label_11.setObjectName(u"label_11")
+        self.label_11.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_17.addWidget(self.label_11, 0, Qt.AlignHCenter|Qt.AlignBottom)
+
+        self.tetScoreLCD = QLCDNumber(self.tetScoreFrame)
+        self.tetScoreLCD.setObjectName(u"tetScoreLCD")
+        sizePolicy1.setHeightForWidth(self.tetScoreLCD.sizePolicy().hasHeightForWidth())
+        self.tetScoreLCD.setSizePolicy(sizePolicy1)
+        self.tetScoreLCD.setMinimumSize(QSize(220, 40))
+        self.tetScoreLCD.setMaximumSize(QSize(220, 40))
+        self.tetScoreLCD.setFrameShape(QFrame.StyledPanel)
+        self.tetScoreLCD.setMode(QLCDNumber.Dec)
+        self.tetScoreLCD.setSegmentStyle(QLCDNumber.Flat)
+        self.tetScoreLCD.setProperty("intValue", 500000)
+
+        self.verticalLayout_17.addWidget(self.tetScoreLCD, 0, Qt.AlignBottom)
+
+        self.label_13 = QLabel(self.tetScoreFrame)
+        self.label_13.setObjectName(u"label_13")
+        self.label_13.setFrameShadow(QFrame.Plain)
+        self.label_13.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_17.addWidget(self.label_13, 0, Qt.AlignHCenter|Qt.AlignBottom)
+
+        self.tetLinesLCD = QLCDNumber(self.tetScoreFrame)
+        self.tetLinesLCD.setObjectName(u"tetLinesLCD")
+        sizePolicy1.setHeightForWidth(self.tetLinesLCD.sizePolicy().hasHeightForWidth())
+        self.tetLinesLCD.setSizePolicy(sizePolicy1)
+        self.tetLinesLCD.setMinimumSize(QSize(220, 40))
+        self.tetLinesLCD.setMaximumSize(QSize(220, 40))
+        font6 = QFont()
+        font6.setPointSize(12)
+        font6.setBold(True)
+        self.tetLinesLCD.setFont(font6)
+        self.tetLinesLCD.setFrameShape(QFrame.StyledPanel)
+        self.tetLinesLCD.setFrameShadow(QFrame.Raised)
+        self.tetLinesLCD.setSmallDecimalPoint(False)
+        self.tetLinesLCD.setSegmentStyle(QLCDNumber.Flat)
+
+        self.verticalLayout_17.addWidget(self.tetLinesLCD)
+
+        self.label_12 = QLabel(self.tetScoreFrame)
+        self.label_12.setObjectName(u"label_12")
+        self.label_12.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_17.addWidget(self.label_12, 0, Qt.AlignHCenter|Qt.AlignBottom)
+
+        self.tetLvlLCD = QLCDNumber(self.tetScoreFrame)
+        self.tetLvlLCD.setObjectName(u"tetLvlLCD")
+        sizePolicy1.setHeightForWidth(self.tetLvlLCD.sizePolicy().hasHeightForWidth())
+        self.tetLvlLCD.setSizePolicy(sizePolicy1)
+        self.tetLvlLCD.setMinimumSize(QSize(220, 40))
+        self.tetLvlLCD.setMaximumSize(QSize(220, 40))
+        self.tetLvlLCD.setFont(font6)
+        self.tetLvlLCD.setFrameShape(QFrame.StyledPanel)
+        self.tetLvlLCD.setFrameShadow(QFrame.Raised)
+        self.tetLvlLCD.setSmallDecimalPoint(False)
+        self.tetLvlLCD.setSegmentStyle(QLCDNumber.Flat)
+
+        self.verticalLayout_17.addWidget(self.tetLvlLCD, 0, Qt.AlignTop)
+
+
+        self.horizontalLayout_5.addWidget(self.tetScoreFrame, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.tetrisBoardWidget = QWidget(self.frame_14)
+        self.tetrisBoardWidget.setObjectName(u"tetrisBoardWidget")
+        sizePolicy1.setHeightForWidth(self.tetrisBoardWidget.sizePolicy().hasHeightForWidth())
+        self.tetrisBoardWidget.setSizePolicy(sizePolicy1)
+        self.tetrisBoardWidget.setMinimumSize(QSize(200, 370))
+        self.tetrisBoardWidget.setMaximumSize(QSize(225, 370))
+
+        self.horizontalLayout_5.addWidget(self.tetrisBoardWidget, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_16.addWidget(self.frame_14)
+
+        self.tetBtnFrame = QFrame(self.frame_13)
+        self.tetBtnFrame.setObjectName(u"tetBtnFrame")
+        self.tetBtnFrame.setMinimumSize(QSize(155, 35))
+        self.tetBtnFrame.setFrameShape(QFrame.StyledPanel)
+        self.tetBtnFrame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.tetBtnFrame)
+        self.horizontalLayout_2.setSpacing(5)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(5, 0, 5, 0)
+        self.tetStartBtn = QPushButton(self.tetBtnFrame)
+        self.tetStartBtn.setObjectName(u"tetStartBtn")
+        self.tetStartBtn.setMinimumSize(QSize(155, 35))
+        self.tetStartBtn.setFocusPolicy(Qt.NoFocus)
+
+        self.horizontalLayout_2.addWidget(self.tetStartBtn, 0, Qt.AlignBottom)
+
+        self.tetPauseBtn = QPushButton(self.tetBtnFrame)
+        self.tetPauseBtn.setObjectName(u"tetPauseBtn")
+        self.tetPauseBtn.setMinimumSize(QSize(155, 35))
+        self.tetPauseBtn.setFocusPolicy(Qt.NoFocus)
+
+        self.horizontalLayout_2.addWidget(self.tetPauseBtn, 0, Qt.AlignBottom)
+
+        self.tetMenuBtn = QPushButton(self.tetBtnFrame)
+        self.tetMenuBtn.setObjectName(u"tetMenuBtn")
+        self.tetMenuBtn.setMinimumSize(QSize(155, 35))
+        self.tetMenuBtn.setFocusPolicy(Qt.NoFocus)
+
+        self.horizontalLayout_2.addWidget(self.tetMenuBtn, 0, Qt.AlignBottom)
+
+        self.tetExitBtn = QPushButton(self.tetBtnFrame)
+        self.tetExitBtn.setObjectName(u"tetExitBtn")
+        self.tetExitBtn.setMinimumSize(QSize(155, 35))
+        self.tetExitBtn.setFocusPolicy(Qt.NoFocus)
+
+        self.horizontalLayout_2.addWidget(self.tetExitBtn, 0, Qt.AlignBottom)
+
+
+        self.verticalLayout_16.addWidget(self.tetBtnFrame, 0, Qt.AlignBottom)
+
+
+        self.verticalLayout_15.addWidget(self.frame_13)
+
+        self.stackedWidget.addWidget(self.tetView)
         self.menuView = QWidget()
         self.menuView.setObjectName(u"menuView")
         self.verticalLayout_7 = QVBoxLayout(self.menuView)
@@ -511,12 +720,15 @@ class Ui_MainWindow(object):
         self.menuNewGameBtn = QPushButton(self.menuBtnFrame)
         self.menuNewGameBtn.setObjectName(u"menuNewGameBtn")
         self.menuNewGameBtn.setMinimumSize(QSize(155, 35))
-        font6 = QFont()
-        font6.setPointSize(12)
-        font6.setBold(True)
         self.menuNewGameBtn.setFont(font6)
 
         self.verticalLayout_11.addWidget(self.menuNewGameBtn, 0, Qt.AlignVCenter)
+
+        self.menuTetBtn = QPushButton(self.menuBtnFrame)
+        self.menuTetBtn.setObjectName(u"menuTetBtn")
+        self.menuTetBtn.setMinimumSize(QSize(155, 35))
+
+        self.verticalLayout_11.addWidget(self.menuTetBtn)
 
         self.menuoptionBtn = QPushButton(self.menuBtnFrame)
         self.menuoptionBtn.setObjectName(u"menuoptionBtn")
@@ -572,11 +784,12 @@ class Ui_MainWindow(object):
 "\n"
 "QLineEdit{\n"
 "	font: 16pt \"PhrasticMedium\";\n"
-"	border-radius: 3px;\n"
+"	border-radius: 8px;\n"
 "	border:1px solid orange;\n"
 "	color: rgba(225, 150, 0, 230);\n"
 "	padding:2px;\n"
 "	text-align:center;\n"
+"\n"
 "\n"
 "	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));\n"
 "}\n"
@@ -586,8 +799,10 @@ class Ui_MainWindow(object):
 "color: rgba(225, 150, 0, 230);\n"
 "	border:1px solid orange;\n"
 "	background-color: qlineargradient(spread:pad, x1:0.5175, y1:0.517, x2:0.983, y2:0.965909, stop:0.0738636 rgba(0, 0, 0, 226), stop:0.664773 rgba(33, 33, 33, 222), stop:1 rgba(57, 57, 57, 222));\n"
-"	border-radius: 3px;\n"
+"	border-radius: 8px;\n"
 "padding: 2px;\n"
+"padding-right:2px;\n"
+"\n"
 "}\n"
 "")
         self.frame_10.setFrameShape(QFrame.StyledPanel)
@@ -646,6 +861,7 @@ class Ui_MainWindow(object):
         self.p1IconBox.addItem("")
         self.p1IconBox.addItem("")
         self.p1IconBox.setObjectName(u"p1IconBox")
+        self.p1IconBox.setMinimumSize(QSize(190, 0))
         self.p1IconBox.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.p1IconBox)
@@ -657,7 +873,9 @@ class Ui_MainWindow(object):
         self.p2IconBox.addItem("")
         self.p2IconBox.addItem("")
         self.p2IconBox.setObjectName(u"p2IconBox")
+        self.p2IconBox.setLayoutDirection(Qt.LeftToRight)
         self.p2IconBox.setMaxCount(999999999)
+        self.p2IconBox.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.p2IconBox)
 
@@ -727,7 +945,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
         self.p2IconBox.setCurrentIndex(0)
 
 
@@ -736,15 +954,14 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:48pt; font-weight:700; color:#ff5500;\">Tic </span><span style=\" font-size:48pt; font-weight:700; color:#ff0000;\">Tac </span><span style=\" font-size:48pt; font-weight:700; color:#aa0000;\">Toe</span></p></body></html>", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700; color:#ff5500;\">Retro </span><span style=\" font-weight:700; color:#ff0000;\">game </span><span style=\" font-weight:700; color:#aa0000;\">bOx</span></p></body></html>", None))
         self.gameStateLabel.setText("")
         self.turnLabel.setText(QCoreApplication.translate("MainWindow", u"S", None))
-        self.p1ScoreLabel.setText("")
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Player 1", None))
-        self.p2ScoreLabel.setText("")
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Round", None))
         self.player1Label.setText("")
         self.player2Label.setText(QCoreApplication.translate("MainWindow", u"454", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Player 1", None))
         self.gridBtn_8.setText(QCoreApplication.translate("MainWindow", u"?", None))
         self.gridBtn_2.setText(QCoreApplication.translate("MainWindow", u"?", None))
         self.gridBtn_3.setText(QCoreApplication.translate("MainWindow", u"?", None))
@@ -758,8 +975,18 @@ class Ui_MainWindow(object):
         self.resetBtn.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.menuBtn.setText(QCoreApplication.translate("MainWindow", u"Menu", None))
         self.exitBtn.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.tetStateLabel.setText(QCoreApplication.translate("MainWindow", u"Gamestate", None))
+        self.nextTetLabel.setText("")
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Score", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Lines", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Level", None))
+        self.tetStartBtn.setText(QCoreApplication.translate("MainWindow", u"Start", None))
+        self.tetPauseBtn.setText(QCoreApplication.translate("MainWindow", u"Pause", None))
+        self.tetMenuBtn.setText(QCoreApplication.translate("MainWindow", u"Menu", None))
+        self.tetExitBtn.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Menu", None))
-        self.menuNewGameBtn.setText(QCoreApplication.translate("MainWindow", u"Start Game", None))
+        self.menuNewGameBtn.setText(QCoreApplication.translate("MainWindow", u"Tic Tac Toe", None))
+        self.menuTetBtn.setText(QCoreApplication.translate("MainWindow", u"Tetris", None))
         self.menuoptionBtn.setText(QCoreApplication.translate("MainWindow", u"Option", None))
         self.menuExitBtn.setText(QCoreApplication.translate("MainWindow", u"Quit", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"New Game", None))

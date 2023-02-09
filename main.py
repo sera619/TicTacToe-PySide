@@ -4,10 +4,11 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from typing import Final
 from src.ui_Ui_main import Ui_MainWindow
-from Game import Player, Game
+from Game import Player, TTTGame
 from util import ButtonStyles
+from tet import *
 
-VERSIONNUM: Final = "1.4"
+VERSIONNUM: Final = "2.1"
 BASE_DIR: Final = os.path.dirname(__file__)
 
 class MainWindow(QMainWindow):
@@ -20,7 +21,18 @@ class MainWindow(QMainWindow):
         self.ui.copyrightLabel.setText(f"Version {VERSIONNUM} | 2023 © S343o3")
         self.ui.stackedWidget.setCurrentWidget(self.ui.menuView)
         self.setWindowTitle("TicTacToe PySide6")
-        self.Game: Game = Game()
+
+        self.tetBoard: TetrixBoard= TetrixBoard()
+        layout = QGridLayout(self.ui.tetrisBoardWidget)
+        layout.addWidget(self.tetBoard, 0, 1, 6, 1)
+        self.tetBoard.set_next_piece_label(self.ui.nextTetLabel)
+        self.tetBoard.game_over.connect(self.gameover_tetris)
+        self.tetBoard.score_changed.connect(self.ui.tetScoreLCD.display)
+        self.tetBoard.level_changed.connect(self.ui.tetLvlLCD.display)
+        self.tetBoard.lines_removed_changed.connect(self.ui.tetLinesLCD.display)
+        self.ui.tetrisBoardWidget.resize(225, 370)
+
+        self.TTTGame: TTTGame = TTTGame()
         self.player_buttons = self.ui.gameField.children()
         self.setup_gamebuttons()
         self.gameover = False
@@ -52,43 +64,106 @@ class MainWindow(QMainWindow):
         self.ui.gridBtn_8.clicked.connect(lambda: self.player_button_handler(self.ui.gridBtn_8))
         self.ui.gridBtn_9.clicked.connect(lambda: self.player_button_handler(self.ui.gridBtn_9))
         self.ui.startBtn.clicked.connect(lambda: self.play_game())
-        self.ui.resetBtn.clicked.connect(lambda: self.game_reset())
+        self.ui.resetBtn.clicked.connect(lambda: self.ttt_game_reset())
         self.ui.menuBtn.clicked.connect(lambda: self.switch_menu_view())
         self.ui.exitBtn.clicked.connect(lambda: self.close())
 
         self.ui.menuExitBtn.clicked.connect(lambda: self.close())
         self.ui.menuNewGameBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.newGameView))
+        self.ui.menuTetBtn.clicked.connect(lambda: self.setup_tetris_view())
+       
+        self.ui.tetExitBtn.clicked.connect(lambda: self.close())
+        self.ui.tetMenuBtn.clicked.connect(lambda: self.switch_menu_view())
+        self.ui.tetStartBtn.clicked.connect(lambda: self.start_tetris())
+        self.ui.tetPauseBtn.clicked.connect(lambda: self.pause_tetris())        
+
         self.ui.startNewGameBtn.clicked.connect(lambda: self.setup_player())
         self.ui.startNewGameBackBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.menuView))
         
         self.ui.newGameBtnFrame.setStyleSheet(ButtonStyles.MenuBtn)
         self.ui.menuBtnFrame.setStyleSheet(ButtonStyles.MenuBtn)
+        self.ui.tetBtnFrame.setStyleSheet(ButtonStyles.MenuBtn)
+        self.ui.label_11.setStyleSheet(ButtonStyles.TetrisLabel)
+        self.ui.label_12.setStyleSheet(ButtonStyles.TetrisLabel)
+        self.ui.label_13.setStyleSheet(ButtonStyles.TetrisLabel)
+        self.ui.tetLinesLCD.setStyleSheet(ButtonStyles.LCDTetris)
+        self.ui.tetLvlLCD.setStyleSheet(ButtonStyles.LCDTetris)
+        self.ui.tetScoreLCD.setStyleSheet(ButtonStyles.LCDTetris)
 
+    ############ TETRIS ###############
+
+    def setup_tetris_view(self):
+        if self.tetBoard == None:
+            self.tetBoard = TetrixBoard()
+            layout = QGridLayout(self.ui.tetrisBoardWidget)
+            layout.addWidget(self.tetBoard, 0, 1, 6, 1)
+            self.tetBoard.set_next_piece_label(self.ui.nextTetLabel)
+            self.tetBoard.game_over.connect(self.gameover_tetris)
+            self.tetBoard.score_changed.connect(self.ui.tetScoreLCD.display)
+            self.tetBoard.level_changed.connect(self.ui.tetLvlLCD.display)
+            self.tetBoard.lines_removed_changed.connect(self.ui.tetLinesLCD.display)
+            self.ui.tetrisBoardWidget.resize(225, 370)
+        self.ui.tetStateLabel.setText("Press 'Start'!")
+        self.ui.stackedWidget.setCurrentWidget(self.ui.tetView)
+
+    def gameover_tetris(self):
+        self.tetBoard.destroy()
+        self.ui.tetrisBoardWidget.setLayout(None)
+        self.ui.tetStateLabel.setText("Game Over!")
+        self.ui.tetLinesLCD.display(0)
+        self.ui.tetLvlLCD.display(0)
+        self.ui.tetScoreLCD.display(0)
+
+    def start_tetris(self):
+        self.tetBoard.start()
+        self.ui.tetStateLabel.setText("Game started!")
+        random.seed(None)
+        print("Tetris: Start Game")
+
+    def pause_tetris(self):
+        self.tetBoard.pause()
+        if self.tetBoard._is_paused:   
+            self.ui.tetPauseBtn.setText("Resume")
+            self.ui.tetStateLabel.setText("Game paused!")
+            print("Tetris: Pause Game")
+        else:
+            self.ui.tetPauseBtn.setText("Pause")
+            self.ui.tetStateLabel.setText("Game started!")
+            print("Tetris: Resume Game")
+
+
+    ######### TIC TAC TOE ############
     def switch_menu_view(self):
-        self.Game.game_over = True
-        self.gameover = True
-        self.ui.turnLabel.setText("")
-        self.ui.gameStateLabel.setText("")
-        self.reset_gamefield()
-        self.block_gamefield()
+        if self.TTTGame.game_over == False:
+            self.TTTGame.game_over = True
+            self.gameover = True
+            self.ui.turnLabel.setText("")
+            self.ui.gameStateLabel.setText("")
+            self.reset_gamefield()
+            self.block_gamefield()
+        if self.tetBoard._is_started == True:
+            self.tetBoard.end_game()
+            self.gameover_tetris()
         self.ui.stackedWidget.setCurrentWidget(self.ui.menuView)
 
-    def game_reset(self):
-        self.Game.reset_game()
-        self.ui.turnLabel.setText(f"Its >>> {self.Game.turn.name} <<< turn!")
+    def ttt_game_reset(self):
+        self.TTTGame.reset_game()
+        self.ui.turnLabel.setText(f"Its >>> {self.TTTGame.turn.name} <<< turn!")
         self.ui.gameStateLabel.setText("Game started")
         self.reset_gamefield()
         self.gameover = False
-        self.Game.start_game()
+        self.TTTGame.round += 1
+        self.ui.tttRoundLCD.display(self.TTTGame.round)
+        self.TTTGame.start_game()
 
     def play_game(self):
         if self.gameover:
             return
-        self.Game.start_game()
+        self.TTTGame.start_game()
         self.ui.gameStateLabel.setText("Game started")
-        self.ui.p1ScoreLabel.setText(str(self.Game.player1.score))
-        self.ui.p2ScoreLabel.setText(str(self.Game.player2.score))
-        self.ui.turnLabel.setText(f"Its >>> {self.Game.turn.name} <<< turn!")
+        self.ui.p1ScoreLcd.display(self.TTTGame.player1.score)
+        self.ui.p2ScoreLcd.display(self.TTTGame.player2.score)
+        self.ui.turnLabel.setText(f"Its >>> {self.TTTGame.turn.name} <<< turn!")
         self.unlock_gamefield()
 
     def reset_gamefield(self):
@@ -163,15 +238,15 @@ class MainWindow(QMainWindow):
             player2.name += " (AI)"
             print("AI is checked")
 
-        self.Game.player1 = player1
-        self.Game.player2 = player2
+        self.TTTGame.player1 = player1
+        self.TTTGame.player2 = player2
+        self.TTTGame.round = 1
+        self.ui.tttRoundLCD.display(self.TTTGame.round)
 
         self.ui.player1Label.setText(player1.name)
         self.ui.player2Label.setText(player2.name)
-        self.ui.p1ScoreLabel.setText(str(player1.score))
-        self.ui.p2ScoreLabel.setText(str(player2.score))
 
-        print(self.Game.player1.name, self.Game.player2.name)
+        print(self.TTTGame.player1.name, self.TTTGame.player2.name)
         self.ui.p1NameInput.setText("")
         self.ui.p2NameInput.setText("")
         self.reset_gamefield()
@@ -179,39 +254,39 @@ class MainWindow(QMainWindow):
         self.ui.turnLabel.setText("Please press Start!")
         self.ui.gameStateLabel.setText("Welcome!")
         self.gameover = False
-        self.Game.reset_game()
+        self.TTTGame.reset_game()
         self.ui.stackedWidget.setCurrentWidget(self.ui.gameView)
 
     def player_button_handler(self, button:QPushButton):
-        button.setText(self.Game.turn.symbol)
+        button.setText(self.TTTGame.turn.symbol)
         animation = QPropertyAnimation(button, b"minimumSize", self.ui.stackedWidget)
         animation.finished.connect(button.setDisabled(True))
         animation.setDuration(300)
         animation.setStartValue(QSize(75,75))
         animation.setEndValue(QSize(85,85))
         animation.start()
-        if self.Game.turn.symbol == self.Game.player1.symbol:
+        if self.TTTGame.turn.symbol == self.TTTGame.player1.symbol:
             button.setStyleSheet("border: 2px solid rgb(255, 0, 0); border-radius: 42px;font-size:58px; color: rgb(255, 0, 0);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(103, 0, 0, 220));")
         else:
             button.setStyleSheet("border: 2px solid rgb(0, 85, 255);border-radius: 42px;font-size:58px; color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
 
-        self.Game.move_player(button.objectName())
+        self.TTTGame.move_player(button.objectName())
 
-        if self.Game.winner == None and self.Game.game_over == True:        
+        if self.TTTGame.winner == None and self.TTTGame.game_over == True:        
             self.draw()
             return
-        if self.Game.game_over:
+        if self.TTTGame.game_over:
             self.player_wins()
             return
 
-        self.ui.turnLabel.setText(f"Its >>> {self.Game.turn.name} <<< turn!")
-        if self.Game.turn == self.Game.player2 and self.Game.player2.ai:
+        self.ui.turnLabel.setText(f"Its >>> {self.TTTGame.turn.name} <<< turn!")
+        if self.TTTGame.turn == self.TTTGame.player2 and self.TTTGame.player2.ai:
             self.block_gamefield()
             self.AITimer.start(1200)
 
     def ai_button_handler(self):
-        btn = self.findChild(QPushButton, "gridBtn_"+str(self.Game.ai_set_move()))
-        btn.setText(self.Game.player2.symbol)
+        btn = self.findChild(QPushButton, "gridBtn_"+str(self.TTTGame.ai_set_move()))
+        btn.setText(self.TTTGame.player2.symbol)
         animation = QPropertyAnimation(btn, b"minimumSize", self.ui.centralwidget)
         animation.finished.connect(btn.setDisabled(True))
         animation.setDuration(180)
@@ -220,14 +295,14 @@ class MainWindow(QMainWindow):
         animation.start()
         btn.setStyleSheet("border: 2px solid rgb(0, 85, 255);border-radius: 42px;font-size:58px; color: rgb(0, 85, 255);background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(13, 0, 0, 220), stop:0.994318 rgba(0, 0, 255, 220));")
         print("AI Clicked btn: "+ btn.objectName())
-        if self.Game.winner == None and self.Game.game_over == True:        
+        if self.TTTGame.winner == None and self.TTTGame.game_over == True:        
             self.draw()
             return
-        if self.Game.game_over:
+        if self.TTTGame.game_over:
             self.player_wins()
             return
         self.unlock_gamefield()
-        self.ui.turnLabel.setText(f"Its >>> {self.Game.turn.name} <<< turn!")
+        self.ui.turnLabel.setText(f"Its >>> {self.TTTGame.turn.name} <<< turn!")
 
     def draw(self):
         self.gameover = True
@@ -238,22 +313,22 @@ class MainWindow(QMainWindow):
     def player_wins(self):
         self.gameover = True
         self.ui.gameStateLabel.setText("Game Over!")
-        self.ui.turnLabel.setText(f"Winner is {self.Game.winner.name}!")
-        self.ui.p1ScoreLabel.setText(str(self.Game.player1.score))
-        self.ui.p2ScoreLabel.setText(str(self.Game.player2.score))
+        self.ui.turnLabel.setText(f"Winner is {self.TTTGame.winner.name}!")
+        self.ui.p1ScoreLcd.display(int(self.TTTGame.player1.score))
+        self.ui.p2ScoreLcd.display(int(self.TTTGame.player2.score))
         self.add_winner_effect()
     
     def add_winner_effect(self):
         self.unlock_gamefield()
-        btn1:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[0]))
-        btn2:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[1]))
-        btn3:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.Game.win_buttons[2]))
+        btn1:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.TTTGame.win_buttons[0]))
+        btn2:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.TTTGame.win_buttons[1]))
+        btn3:QPushButton = self.findChild(QPushButton, "gridBtn_"+str(self.TTTGame.win_buttons[2]))
         self.winner_btn = [btn1, btn2, btn3]
 
         for btn in self.winner_btn:
             shadow_1 = QGraphicsDropShadowEffect()
             shadow_1.setBlurRadius(105.0)
-            if self.Game.winner == self.Game.player1:
+            if self.TTTGame.winner == self.TTTGame.player1:
                 shadow_1.setColor(QColor(255, 0, 0, 220))
             else:
                 shadow_1.setColor(QColor(0, 0, 255, 220))                
